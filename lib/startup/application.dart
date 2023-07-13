@@ -1,8 +1,4 @@
-import '_all.dart';
-
-void main() {
-  runApp(const Application());
-}
+import 'package:firebase_task_menanger/_all.dart';
 
 class Application extends StatelessWidget {
   const Application({super.key});
