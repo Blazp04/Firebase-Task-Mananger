@@ -4,3 +4,5 @@ part of 'task_bloc.dart';
 abstract class TaskEvent {}
 
 class LoadDataEvent extends TaskEvent {}
+
+class AddNewTaskEvent extends TaskEvent {}
