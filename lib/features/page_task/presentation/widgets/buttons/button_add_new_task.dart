@@ -1,4 +1,5 @@
 import 'package:firebase_task_menanger/_all.dart';
+import 'package:firebase_task_menanger/features/page_task/blocs/task_bloc/task_bloc.dart';
 
 class AddNewTaskButton extends StatelessWidget {
   const AddNewTaskButton({
@@ -13,7 +14,9 @@ class AddNewTaskButton extends StatelessWidget {
         height: 100,
         child: ElevatedButton(
           child: const Text("Dodaj novi zadatak"),
-          onPressed: () {},
+          onPressed: () {
+            context.read<TaskBloc>().add(LoadDataEvent());
+          },
         ),
       ),
     );

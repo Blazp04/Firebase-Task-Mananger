@@ -1,4 +1,5 @@
 import 'package:firebase_task_menanger/_all.dart';
+import 'package:firebase_task_menanger/features/page_task/blocs/task_bloc/task_bloc.dart';
 
 class TaskMenanger extends StatelessWidget {
   TaskMenanger({super.key});
@@ -11,31 +12,38 @@ class TaskMenanger extends StatelessWidget {
       body: Column(
         children: const [
           AddNewTaskButton(),
-          TaskSection(),
+          _TaskSection(),
         ],
       ),
     );
   }
 }
 
-class TaskSection extends StatelessWidget {
-  const TaskSection({
+class _TaskSection extends StatelessWidget {
+  const _TaskSection({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 600,
-      child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            return TaskWidget(
-              title: "List item $index",
-              subtitle: "Ovo je neki tekst",
-              trailing: "ABC",
-            );
-          }),
+    return BlocBuilder<TaskBloc, TaskState>(
+      builder: (context, state) {
+        if (state.status == TaskStateStatus.initial || state.status == TaskStateStatus.loading) {
+          return CircularProgressIndicator();
+        }
+        return Container(
+          height: 600,
+          child: ListView.builder(
+              itemCount: state.task?.length ?? 0,
+              itemBuilder: (BuildContext context, int index) {
+                return TaskWidget(
+                  title: state.task![index].title,
+                  subtitle: state.task![index].text,
+                  trailing: "ABC",
+                );
+              }),
+        );
+      },
     );
   }
 }
