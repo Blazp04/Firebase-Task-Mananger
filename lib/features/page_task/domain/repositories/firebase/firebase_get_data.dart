@@ -11,7 +11,7 @@ abstract class IFirebaseInterface {
 class FirebaseData extends IFirebaseInterface {
   @override
   Future<List<Task>> getdata() async {
-    final response = await http.get(Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/.json'));
+    final response = await http.get(Uri.parse('${AppSettings().firebaseURL}/users/000/.json'));
 
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
@@ -33,7 +33,7 @@ class FirebaseData extends IFirebaseInterface {
   Future<bool> addNewTask({required String icon, required String title, required String text}) async {
     try {
       final request = http.post(
-        Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/.json'),
+        Uri.parse('${AppSettings().firebaseURL}/users/000/task/.json'),
         body: jsonEncode(
           <String, dynamic>{
             'icon': icon,
@@ -52,7 +52,7 @@ class FirebaseData extends IFirebaseInterface {
   @override
   Future<bool> deleteData(String id) async {
     try {
-      final request = await http.delete(Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/${id}/.json'));
+      final request = await http.delete(Uri.parse('${AppSettings().firebaseURL}/users/000/task/${id}/.json'));
       return true;
     } catch (e) {
       return false;
@@ -70,7 +70,7 @@ class FirebaseData extends IFirebaseInterface {
       }
     });
     final response = await http.patch(
-      Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/.json'),
+      Uri.parse('${AppSettings().firebaseURL}/users/000/task/.json'),
       body: body,
     );
     if (response.statusCode == 200) {
