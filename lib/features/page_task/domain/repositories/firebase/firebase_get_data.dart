@@ -5,6 +5,7 @@ abstract class IFirebaseInterface {
   Future<List<Task>> getdata();
   Future<bool> addNewTask(String icon, String title, String text);
   Future<bool> deleteData(String id);
+  Future<bool> updateTask(String id, String icon, String title, String text, bool isActive);
 }
 
 class FirebaseData extends IFirebaseInterface {
@@ -48,12 +49,33 @@ class FirebaseData extends IFirebaseInterface {
     }
   }
 
+  @override
   Future<bool> deleteData(String id) async {
     try {
-      final request = http.delete(Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/${id}/.json'));
+      final request = await http.delete(Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/${id}/.json'));
       return true;
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<bool> updateTask(String id, String icon, String title, String text, bool isActive) async {
+    final body = jsonEncode({
+      "blaz": {
+        "icon": icon,
+        "isActive": !isActive,
+        "text": text,
+        "title": title,
+      }
+    });
+    final response = await http.patch(
+      Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/${id}/.json'),
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      return false;
+    }
+    return true;
   }
 }
