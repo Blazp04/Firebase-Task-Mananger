@@ -35,6 +35,7 @@ class _MyFormState extends State<MyForm> {
   void _saveData(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       context.read<TaskBloc>().add(AddNewTaskEvent(title: _titleFieldValue, text: _textFieldValue));
+      Navigator.pop(context);
     }
   }
 
