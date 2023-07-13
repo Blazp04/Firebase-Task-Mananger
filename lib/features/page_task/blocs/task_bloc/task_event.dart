@@ -8,3 +8,5 @@ class LoadDataEvent extends TaskEvent {}
 class AddNewTaskEvent extends TaskEvent {}
 
 class DeleteTaskEvent extends TaskEvent {}
+
+class UpdateDataEvent extends TaskEvent {}

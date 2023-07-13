@@ -1,6 +1,4 @@
-import 'package:bloc/bloc.dart';
 import 'package:firebase_task_menanger/_all.dart';
-import 'package:meta/meta.dart';
 
 part 'task_event.dart';
 part 'task_state.dart';
@@ -11,6 +9,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<LoadDataEvent>(_loadData);
     on<AddNewTaskEvent>(_addNewTask);
     on<DeleteTaskEvent>(_deleteTask);
+    on<UpdateDataEvent>(_updateTask);
   }
 
   Future _loadData(LoadDataEvent event, Emitter emit) async {
@@ -29,6 +28,15 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Future _deleteTask(DeleteTaskEvent event, Emitter emit) async {
+    bool success = await firebaseInterface.deleteData('-N_EPIne959F6nY4HqAt');
+    if (success) {
+      add(LoadDataEvent());
+    } else {
+      emit(state.copyWith(status: TaskStateStatus.error));
+    }
+  }
+
+  Future _updateTask(UpdateDataEvent event, Emitter emit) async {
     bool success = await firebaseInterface.deleteData('-N_EPIne959F6nY4HqAt');
     if (success) {
       add(LoadDataEvent());
