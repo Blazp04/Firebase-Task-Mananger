@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 abstract class IFirebaseInterface {
   Future<List<Task>> getdata();
   Future<bool> addNewTask(String icon, String title, String text);
+  Future<bool> deleteData(String id);
 }
 
 class FirebaseData extends IFirebaseInterface {
@@ -14,9 +15,14 @@ class FirebaseData extends IFirebaseInterface {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final taskData = jsonData['task'] as Map<String, dynamic>;
-      final taskList = taskData.values.toList();
 
-      return taskList.map<Task>((taskData) => Task.fromMap(taskData)).toList();
+      final parentNames = taskData.keys.toList();
+      final finalData = parentNames.map<Task>((parentName) {
+        final taskDataItem = taskData[parentName] as Map<String, dynamic>;
+        return Task.fromMap(taskDataItem).copyWith(id: parentName);
+      }).toList();
+
+      return finalData;
     } else {
       throw Exception('Failed to load data');
     }
@@ -36,6 +42,15 @@ class FirebaseData extends IFirebaseInterface {
           },
         ),
       );
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> deleteData(String id) async {
+    try {
+      final request = http.delete(Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/${id}/.json'));
       return true;
     } catch (e) {
       return false;

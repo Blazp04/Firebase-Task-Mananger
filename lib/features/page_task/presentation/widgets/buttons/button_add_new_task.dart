@@ -15,7 +15,7 @@ class AddNewTaskButton extends StatelessWidget {
         child: ElevatedButton(
           child: const Text("Dodaj novi zadatak"),
           onPressed: () {
-            context.read<TaskBloc>().add(AddNewTaskEvent());
+            context.read<TaskBloc>().add(DeleteTaskEvent());
           },
         ),
       ),

@@ -6,11 +6,13 @@ class Task {
   String title;
   String icon;
   bool isActive;
+  String? id;
   Task({
     required this.text,
     required this.title,
     required this.icon,
     required this.isActive,
+    this.id,
   });
 
   Task copyWith({
@@ -18,12 +20,14 @@ class Task {
     String? title,
     String? icon,
     bool? isActive,
+    String? id,
   }) {
     return Task(
       text: text ?? this.text,
       title: title ?? this.title,
       icon: icon ?? this.icon,
       isActive: isActive ?? this.isActive,
+      id: id ?? this.id,
     );
   }
 
@@ -33,6 +37,7 @@ class Task {
       'title': title,
       'icon': icon,
       'isActive': isActive,
+      'id': id,
     };
   }
 
@@ -42,6 +47,7 @@ class Task {
       title: map['title'] as String,
       icon: map['icon'] as String,
       isActive: map['isActive'] as bool,
+      id: map['id'] != null ? map['id'] as String : null,
     );
   }
 
@@ -51,18 +57,18 @@ class Task {
 
   @override
   String toString() {
-    return 'Task(text: $text, title: $title, icon: $icon, isActive: $isActive)';
+    return 'Task(text: $text, title: $title, icon: $icon, isActive: $isActive, id: $id)';
   }
 
   @override
   bool operator ==(covariant Task other) {
     if (identical(this, other)) return true;
 
-    return other.text == text && other.title == title && other.icon == icon && other.isActive == isActive;
+    return other.text == text && other.title == title && other.icon == icon && other.isActive == isActive && other.id == id;
   }
 
   @override
   int get hashCode {
-    return text.hashCode ^ title.hashCode ^ icon.hashCode ^ isActive.hashCode;
+    return text.hashCode ^ title.hashCode ^ icon.hashCode ^ isActive.hashCode ^ id.hashCode;
   }
 }

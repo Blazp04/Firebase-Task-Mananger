@@ -10,6 +10,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc({required this.firebaseInterface}) : super(TaskState(status: TaskStateStatus.initial)) {
     on<LoadDataEvent>(_loadData);
     on<AddNewTaskEvent>(_addNewTask);
+    on<DeleteTaskEvent>(_deleteTask);
   }
 
   Future _loadData(LoadDataEvent event, Emitter emit) async {
@@ -19,8 +20,17 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Future _addNewTask(AddNewTaskEvent event, Emitter emit) async {
-    bool succes = await firebaseInterface.addNewTask('icon', 'title', 'text');
-    if (succes) {
+    bool success = await firebaseInterface.addNewTask('icon', 'title', 'text');
+    if (success) {
+      add(LoadDataEvent());
+    } else {
+      emit(state.copyWith(status: TaskStateStatus.error));
+    }
+  }
+
+  Future _deleteTask(DeleteTaskEvent event, Emitter emit) async {
+    bool success = await firebaseInterface.deleteData('-N_EPIne959F6nY4HqAt');
+    if (success) {
       add(LoadDataEvent());
     } else {
       emit(state.copyWith(status: TaskStateStatus.error));
