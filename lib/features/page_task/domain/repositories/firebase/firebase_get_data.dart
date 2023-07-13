@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 
 abstract class IFirebaseInterface {
   Future<List<Task>> getdata();
-  Future<bool> addNewTask(String icon, String title, String text);
+  Future<bool> addNewTask({required String icon, required String title, required String text});
   Future<bool> deleteData(String id);
-  Future<bool> updateTask(String id, String icon, String title, String text, bool isActive);
+  Future<bool> updateTask({required String id, required String icon, required String title, required String text, required bool isActive});
 }
 
 class FirebaseData extends IFirebaseInterface {
@@ -30,7 +30,7 @@ class FirebaseData extends IFirebaseInterface {
   }
 
   @override
-  Future<bool> addNewTask(String icon, String title, String text) async {
+  Future<bool> addNewTask({required String icon, required String title, required String text}) async {
     try {
       final request = http.post(
         Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/.json'),
@@ -60,9 +60,9 @@ class FirebaseData extends IFirebaseInterface {
   }
 
   @override
-  Future<bool> updateTask(String id, String icon, String title, String text, bool isActive) async {
+  Future<bool> updateTask({required String id, required String icon, required String title, required String text, required bool isActive}) async {
     final body = jsonEncode({
-      "blaz": {
+      "$id": {
         "icon": icon,
         "isActive": !isActive,
         "text": text,
@@ -70,12 +70,12 @@ class FirebaseData extends IFirebaseInterface {
       }
     });
     final response = await http.patch(
-      Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/${id}/.json'),
+      Uri.parse('https://fir-task-menanger-default-rtdb.europe-west1.firebasedatabase.app/users/000/task/.json'),
       body: body,
     );
     if (response.statusCode == 200) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 }

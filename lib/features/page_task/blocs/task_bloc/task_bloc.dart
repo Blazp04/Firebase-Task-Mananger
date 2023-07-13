@@ -19,7 +19,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Future _addNewTask(AddNewTaskEvent event, Emitter emit) async {
-    bool success = await firebaseInterface.addNewTask('icon', 'title', 'text');
+    bool success = await firebaseInterface.addNewTask(icon: 'null', title: event.title, text: event.text);
     if (success) {
       add(LoadDataEvent());
     } else {
@@ -28,7 +28,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Future _deleteTask(DeleteTaskEvent event, Emitter emit) async {
-    bool success = await firebaseInterface.deleteData('-N_EPIne959F6nY4HqAt');
+    bool success = await firebaseInterface.deleteData(event.id);
     if (success) {
       add(LoadDataEvent());
     } else {
@@ -37,7 +37,13 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Future _updateTask(UpdateDataEvent event, Emitter emit) async {
-    bool success = await firebaseInterface.deleteData('-N_EPIne959F6nY4HqAt');
+    bool success = await firebaseInterface.updateTask(
+      id: event.id,
+      icon: event.icon,
+      title: event.title,
+      text: event.text,
+      isActive: event.isActive,
+    );
     if (success) {
       add(LoadDataEvent());
     } else {
