@@ -8,19 +8,18 @@ env:
 
 jobs:
   patch:
+    defaults:
+      run:
+        shell: bash
+
     runs-on: ubuntu-latest
 
     steps:
       - name: 📚 Git Checkout
         uses: actions/checkout@v3
-        with:
-          path: your/path/to/your/app
 
       - name: 🐦 Setup Shorebird
         uses: shorebirdtech/setup-shorebird@v0
-
-      - name: 🚀 Initialize Shorebird
-        run: shorebird init
 
       # Note: all signing information (key.properties, etc.) must be set up on
       # this runner for `shorebird patch android` to work.
