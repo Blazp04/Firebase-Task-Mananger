@@ -14,7 +14,7 @@ class TaskMenanger extends StatelessWidget {
           style: TextStyle(color: darkGrayColor),
         ),
         backgroundColor: backGroundColor,
-        shadowColor: Colors.white,
+        shadowColor: Colors.yellow,
         centerTitle: true,
       ),
       backgroundColor: backGroundColor,
