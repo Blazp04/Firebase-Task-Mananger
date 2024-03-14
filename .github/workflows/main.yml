@@ -13,11 +13,16 @@ jobs:
     steps:
       - name: 📚 Git Checkout
         uses: actions/checkout@v3
+        with:
+          path: your/path/to/your/app
 
       - name: 🐦 Setup Shorebird
         uses: shorebirdtech/setup-shorebird@v1
         with:
           token: ${{ secrets.SHOREBIRD_TOKEN }}
+
+      - name: 🚀 Initialize Shorebird
+        run: shorebird init
 
       # Note: all signing information (key.properties, etc.) must be set up on
       # this runner for `shorebird patch android` to work.
