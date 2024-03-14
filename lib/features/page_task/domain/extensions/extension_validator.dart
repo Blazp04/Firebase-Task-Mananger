@@ -1,4 +1,3 @@
-import 'package:firebase_task_menanger/_all.dart';
 
 extension StringValidator on String {
   String? validateText() {

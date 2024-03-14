@@ -3,8 +3,8 @@ import 'package:firebase_task_menanger/_all.dart';
 Color backGroundColor = const Color.fromARGB(255, 248, 248, 248);
 
 //Green color
-Color darkGreenColor = Color.fromARGB(255, 121, 171, 165);
-Color textGreenColor = Color.fromARGB(255, 47, 59, 59);
+Color darkGreenColor = const Color.fromARGB(255, 121, 171, 165);
+Color textGreenColor = const Color.fromARGB(255, 47, 59, 59);
 Color backgroundGreenColor = const Color.fromARGB(255, 215, 234, 233);
 
 //Orange color

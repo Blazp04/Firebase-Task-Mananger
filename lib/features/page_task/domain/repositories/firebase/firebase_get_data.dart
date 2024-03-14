@@ -52,7 +52,7 @@ class FirebaseData extends IFirebaseInterface {
   @override
   Future<bool> deleteData(String id) async {
     try {
-      final request = await http.delete(Uri.parse('${AppSettings().firebaseURL}/users/000/task/${id}/.json'));
+      final request = await http.delete(Uri.parse('${AppSettings().firebaseURL}/users/000/task/$id/.json'));
       return true;
     } catch (e) {
       return false;
@@ -62,7 +62,7 @@ class FirebaseData extends IFirebaseInterface {
   @override
   Future<bool> updateTask({required String id, required String icon, required String title, required String text, required bool isActive}) async {
     final body = jsonEncode({
-      "$id": {
+      id: {
         "icon": icon,
         "isActive": !isActive,
         "text": text,

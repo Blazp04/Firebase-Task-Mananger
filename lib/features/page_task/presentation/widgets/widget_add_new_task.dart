@@ -50,7 +50,7 @@ class TaskWidget extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Divider(thickness: 2, color: isActive ? darkGreenColor : darkGrayColor),
-            Container(
+            SizedBox(
               height: 45,
               child: Row(
                 children: [

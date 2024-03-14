@@ -4,14 +4,10 @@ on:
   workflow_dispatch:
 
 env:
-  SHOREBIRD_TOKEN: eyJyZWZyZXNoX3Rva2VuIjoiMS8vMDlvVGhNWl9EOW9yeENnWUlBUkFBR0FrU053Ri1MOUlyWG1MR2VudnJJdEJrTTM5MC1sUzV6dUVWYVZKNjQ0SXY2enQzbW9LQlNvZWRzZUpEM1F1WGo5ejJrOW9BbHJIRE95NCIsImF1dGhfcHJvdmlkZXIiOiJnb29nbGUifQ== 
+  SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
 
 jobs:
   patch:
-    defaults:
-      run:
-        shell: bash
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +15,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: 🐦 Setup Shorebird
-        uses: shorebirdtech/setup-shorebird@v0
+        uses: shorebirdtech/setup-shorebird@v1
+        with:
+          token: ${{ secrets.SHOREBIRD_TOKEN }}
 
       # Note: all signing information (key.properties, etc.) must be set up on
       # this runner for `shorebird patch android` to work.

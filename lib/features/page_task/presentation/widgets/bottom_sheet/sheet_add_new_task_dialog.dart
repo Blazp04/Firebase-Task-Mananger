@@ -12,14 +12,16 @@ void AddNewTaskDialog(BuildContext context) {
     ),
     builder: (BuildContext context) {
       return Container(
-        padding: EdgeInsets.all(20),
-        child: MyForm(),
+        padding: const EdgeInsets.all(20),
+        child: const MyForm(),
       );
     },
   );
 }
 
 class MyForm extends StatefulWidget {
+  const MyForm({super.key});
+
   @override
   _MyFormState createState() => _MyFormState();
 }
@@ -48,7 +50,7 @@ class _MyFormState extends State<MyForm> {
         children: [
           TextFormField(
             controller: _titleTextEditingController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Unesite naslov',
             ),
             onChanged: (value) {

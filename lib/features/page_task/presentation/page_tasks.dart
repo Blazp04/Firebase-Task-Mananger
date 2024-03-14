@@ -18,15 +18,15 @@ class TaskMenanger extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: backGroundColor,
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           // AddNewTaskButton()
           _TaskSection(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: darkGreenColor,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           AddNewTaskDialog(context);
         },
@@ -36,9 +36,7 @@ class TaskMenanger extends StatelessWidget {
 }
 
 class _TaskSection extends StatefulWidget {
-  const _TaskSection({
-    super.key,
-  });
+  const _TaskSection();
 
   @override
   State<_TaskSection> createState() => _TaskSectionState();
@@ -58,7 +56,7 @@ class _TaskSectionState extends State<_TaskSection> {
         if (state.status == TaskStateStatus.initial || state.status == TaskStateStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
-        return Container(
+        return SizedBox(
           height: MediaQuery.of(context).size.height - 80,
           child: RefreshIndicator(
             onRefresh: () async {
