@@ -1,3 +1,3 @@
 # Testni repository
 
-Koristimo ga za testiranje različitih alata
+**Koristimo ga za testiranje različitih alata**
